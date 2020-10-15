@@ -50,20 +50,46 @@ const nextBtn = document.querySelector(".next-btn");
 const randomBtn = document.querySelector(".random-btn");
 
 // set starting Item
-let currentItem = 1;
+let currentItem = 0;
 
 // load itial Item 
-window.addEventListener('DOMContentLoaded', function() {
-  showPerson(currentItem);
+window.addEventListener("DOMContentLoaded", function() {
+  showPerson();
 })
 
 // show person Item
 
-function showPerson(person) {
-  const item = reviews[person];
+function showPerson() {
+  const item = reviews[currentItem];
   img.src = item.img;
-  author.textContent = item.name
+  author.textContent = item.name;
   job.textContent = item.job;
   info.textContent = item.text;
-
 }
+
+// show next person
+nextBtn.addEventListener("click", function() {
+  currentItem++;
+  if (currentItem > reviews.length - 1) {
+    currentItem = 0;
+  }
+  showPerson(currentItem);
+});
+
+// show prev person
+prevBtn.addEventListener("click", function() {
+  currentItem--;
+  if (currentItem < 0) {
+    currentItem = reviews.length - 1;
+  }
+  showPerson();
+});
+
+
+// show random person
+
+randomBtn.addEventListener("click", function() {
+  currentItem = Math.floor(Math.random() * reviews.length);
+  showPerson();
+});
+
